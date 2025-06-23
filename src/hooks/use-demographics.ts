@@ -28,7 +28,7 @@ export function useCreateDemographicsConfig() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: DemographicsConfigPayload) =>
+    mutationFn: (payload: { camera_id: string; gender: boolean; age: boolean; emotion: boolean; ethnicity: boolean }) =>
       api.createDemographicsConfig(payload),
     onSuccess: (config) => {
       queryClient.invalidateQueries({
@@ -47,7 +47,7 @@ export function useUpdateDemographicsConfig() {
       payload,
     }: {
       configId: string;
-      payload: Omit<DemographicsConfigPayload, 'camera_id'>;
+      payload: { gender: boolean; age: boolean; emotion: boolean; ethnicity: boolean };
     }) => api.updateDemographicsConfig(configId, payload),
     onSuccess: (config) => {
       queryClient.invalidateQueries({
